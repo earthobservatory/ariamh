@@ -35,12 +35,12 @@
     { 
       "name": "localize_url",
       "from": "dataset_jpath:_source",
-      "lambda": "lambda ds: filter(lambda x: x.startswith('s3://'), ds['urls'])[0]"
+      "lambda": "lambda ds: filter(lambda x: x.startswith('azure://'), ds['urls'])[0]"
     },
     { 
       "name": "path",
       "from": "dataset_jpath:_source",
-      "lambda": "lambda ds: __import__('os').path.basename(filter(lambda x: x.startswith('s3://'), ds['urls'])[0])"
+      "lambda": "lambda ds: __import__('os').path.basename(filter(lambda x: x.startswith('azure://'), ds['urls'])[0])"
     },
     { 
       "name": "query",

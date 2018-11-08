@@ -8,10 +8,11 @@
   "dependency_images": [
     {
       "container_image_name": "aria/isce_giant:latest",
-      "container_image_url": "s3://s3-ap-southeast-1.amazonaws.com/ntu-hysds-code/aria-isce_giant-latest.tar.gz",
+      "container_image_url": "azure://hysds3.blob.core.windows.net/code/aria-isce_giant-latest.tar.gz",
       "container_mappings": {
         "$HOME/.netrc": ["/root/.netrc"],
-        "$HOME/.aws": ["/root/.aws", "ro"]
+        "$HOME/.aws": ["/root/.aws", "ro"],
+        "/home/ops/.azure": ["/root/.azure", "ro"]
       }
     }
   ],

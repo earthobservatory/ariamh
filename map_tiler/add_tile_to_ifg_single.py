@@ -39,7 +39,7 @@ prod_url = None
 for url in doc['urls']:
     if prod_url is None:
         prod_url = url
-    if url.startswith('s3://'):
+    if url.startswith('azure://'):
         prod_url = url
     if url.startswith("http"):
         print "Browser link: {0}".format(url)

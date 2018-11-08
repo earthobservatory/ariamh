@@ -54,7 +54,7 @@ while True:
         work_dir = prod_id
         prod_url = None
         for url in doc['urls']:
-            if url.startswith('s3://'):
+            if url.startswith('azure://'):
                 prod_url = url
                 break
         if prod_url is None:
@@ -76,7 +76,7 @@ while True:
 
         # clean out tiles if exists
         parsed_url = urlparse(prod_url) 
-        tiles_url = "s3://{}/tiles".format(parsed_url.path[1:])
+        tiles_url = "azure://{}/tiles".format(parsed_url.path[1:])
         cmd = "aws s3 rm --recursive {}"
         check_call(cmd.format(tiles_url), shell=True)
 
