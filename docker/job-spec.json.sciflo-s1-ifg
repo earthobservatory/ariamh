@@ -37,7 +37,7 @@
       "destination": "context"
     },
     {
-      "name": "preNReferencePairDirection",
+      "name": "preReferencePairDirection",
       "destination": "context"
     },
     {
