@@ -144,7 +144,7 @@ def get_urls(info):
         prod_url = fields['urls'][0]
         if len(fields['urls']) > 1:
             for u in fields['urls']:
-                if u.startswith('s3://'):
+                if u.startswith('azure://'):
                     prod_url = u
                     break
         urls.append("%s/%s" % (prod_url, fields['metadata']['archive_filename']))

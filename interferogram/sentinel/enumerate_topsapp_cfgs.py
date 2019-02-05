@@ -440,11 +440,11 @@ def group_frames_by_track_date(frames):
         if h['_id'] in hits: continue
         fields = h['fields']['partial'][0]
 
-        # get product url; prefer S3
+        # get product url; prefer Azure
         prod_url = fields['urls'][0]
         if len(fields['urls']) > 1:
             for u in fields['urls']:
-                if u.startswith('s3://'):
+                if u.startswith('azure://'):
                     prod_url = u
                     break
 
