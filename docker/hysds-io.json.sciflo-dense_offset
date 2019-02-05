@@ -1,6 +1,6 @@
 {
   "label" : "Sentinel-1 Dense Offset Product",
-  "recommended-queues" : [ "aria-job_worker-small" ],
+  "recommended-queues" : [ "pdf-job_worker-small" ],
   "allowed_accounts": [ "ops" ],
   "params" : [
     { 
@@ -14,8 +14,8 @@
       "name": "project",
       "from": "submitter",
       "type": "enum",
-      "default":"aria",
-      "enumerables": ["aria", "volcano", "sealevel", "tectonics", "change_detection", "urgent_response"]
+      "default": "pdf",
+      "enumerables": ["pdf", "aria", "grfn", "mem", "urgent-response", "dwr", "chevron", "floodmap"]
     },
     { 
       "name": "singlesceneOnly",

@@ -6,8 +6,8 @@
     { 
       "name": "project",
       "from": "submitter",
-      "default": "aria",
-      "enumerables": [ "aria", "volcano", "sealevel", "tectonics", "change_detection", "urgent_response"]
+      "type": "enum",
+      "enumerables": ["aria", "grfn", "mem", "urgent-response", "dwr", "chevron", "floodmap"]
     },
     { 
       "name": "sensor",
