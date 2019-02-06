@@ -3,7 +3,7 @@
   "imported_worker_files": {
     "$HOME/.netrc": "/home/ops/.netrc",
     "$HOME/.aws": "/home/ops/.aws",
-    "$HOME/verdi/etc/settings.conf": "/home/ops/ariamh/conf/settings.conf"
+    "$HOME/ariamh/conf/settings.conf": "/home/ops/ariamh/conf/settings.conf"
   },
   "recommended-queues" : [
     "grfn-job_worker-large",

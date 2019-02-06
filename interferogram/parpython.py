@@ -79,7 +79,7 @@ def stitch_ifg_job(project, direction, extra_products, filenames, filename_urls,
         "container_mappings": {
             "$HOME/.netrc": "/home/ops/.netrc",
             "$HOME/.aws": "/home/ops/.aws",
-            "$HOME/verdi/etc/settings.conf": "/home/ops/ariamh/conf/settings.conf"
+            "$HOME/ariamh/conf/settings.conf": "/home/ops/ariamh/conf/settings.conf"
         },    
         "soft_time_limit": 86400,
         "time_limit": 86700,
