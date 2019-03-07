@@ -23,7 +23,7 @@ echo "ZIP_FILE : " ${ZIP_FILE} 1>&2
 echo "##########################################" 1>&2
 echo -n "Started splitting swath products from SLC: " 1>&2
 date 1>&2
-${BASE_PATH}/split_swath_products.py ${ZIP_FILE} $JOB_DIR > \
+${BASE_PATH}/split_swath_products.py ${ZIP_FILE} $JOB_DIR ${PROD_ID} > \
                                      ${JOB_DIR}/split_swath_products.log 2>&1
 STATUS=$?
 echo -n "Finished splitting swath products from SLC: " 1>&2

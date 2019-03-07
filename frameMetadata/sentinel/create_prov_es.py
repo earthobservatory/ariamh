@@ -26,7 +26,9 @@ def create_prov_es_json(ctx_file, prod_dir, prov_file):
 
     # get id and input url
     id = context.get('prod_name')
-    zip_url = context.get('localize_urls', [{ 'url': None}])[0]['url']
+    zip_url_list = context.get('localize_urls', [{ 'url': None}])
+    zip_url = None if not zip_url_list else zip_url_list[0]['url']
+
     input_url = context.get('download_url', zip_url)
 
     # get info

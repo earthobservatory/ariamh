@@ -9,27 +9,27 @@ import create_dataset_json
 MISSION_RE = re.compile(r'^S1(\w)_')
 
 
-def browse(extracted, safe_dir, productType):
+def browse(prod_id, safe_dir, productType):
     """Create browse images."""
 
-    browse_img = extracted+".browse.png"
-    small_browse_img = extracted+".browse_small.png"
+    browse_img = prod_id+".browse.png"
+    small_browse_img = prod_id+".browse_small.png"
     if productType == "slc":
         img = os.path.join(safe_dir, "preview", "quick-look.png")
         os.system("cp -f %s %s" % (img, browse_img))
         os.system("convert -resize 250x250 %s %s" % (browse_img, small_browse_img))
 
 
-def harvest(extracted, safe_dir, productType):
+def harvest(prod_id, zip_file, safe_dir, productType):
     """Harvest the metadata for this product."""
 
-    metf = extracted+".met.json"
-    dsf = extracted+".dataset.json"
+    metf = prod_id+".met.json"
+    dsf = prod_id+".dataset.json"
     mis_char = MISSION_RE.search(extracted).group(1)
     if productType == "slc" or productType == "raw":
         fn = "%s/manifest.safe" % safe_dir
-        create_met_json.create_met_json(fn, metf, mis_char)
-        create_dataset_json.create_dataset_json(extracted, metf, dsf)
+        create_met_json.create_met_json(fn,metf, zip_file, mis_char)
+        create_dataset_json.create_dataset_json(prod_id,metf,dsf)
     else:
         # Write JSON for this product
         metadata = {"productname": extracted}
@@ -82,6 +82,8 @@ def parser():
     parse = argparse.ArgumentParser(description="Split S1 granule into separate swath products.")
     parse.add_argument("zip_file", help="Zip file localized by HySDS")
     parse.add_argument("job_dir", help="job directory")
+    parse.add_argument("prod_id", help="product id to name metadata/dataset/browse files")
+
     return parse
 
 
@@ -99,7 +101,7 @@ if __name__ == "__main__":
 
     extracted, safe_dir = extract(args.zip_file)
     split_swaths(extracted, safe_dir, args.job_dir)
-    harvest(extracted, safe_dir, typ)
-    browse(extracted, safe_dir, typ)
+    harvest(args.prod_id, args.zip_file, safe_dir, typ)
+    browse(args.prod_id, safe_dir, typ)
     os.system("rm -rf %s" % safe_dir)
     print("COMPLETED SPLIT SWATH")

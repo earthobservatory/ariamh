@@ -4,7 +4,7 @@ import os, sys, json, re
 from lxml.etree import parse
 
 
-def create_met_json(xml_file, json_file, mis_char):
+def create_met_json(xml_file, json_file, zip_file, mis_char):
     """Write product metadata json."""
     with open(xml_file) as f:
         doc = parse(f)
@@ -36,7 +36,7 @@ def create_met_json(xml_file, json_file, mis_char):
     else:
         direction = "dsc"
 
-    archive_filename = os.path.basename(json_file).replace('.met.json', '.zip')
+    archive_filename = zip_file
 
     metadata = {
         "archive_filename": archive_filename,
