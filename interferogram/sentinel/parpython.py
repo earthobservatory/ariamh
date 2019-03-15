@@ -246,10 +246,10 @@ def create_xtstitched_ifg_job(project, stitched, auto_bbox, ifg_id, master_zip_u
         "job_type": "job:%s" % job_type,
         "job_queue": job_queue,
         "container_mappings": {
-            "/home/ops/.netrc": "/home/ops/.netrc",
-            "/home/ops/.aws": "/home/ops/.aws",
-            "/home/ops/.azure": "/home/ops/.azure",
-            "/home/ops/ariamh/conf/settings.conf": "/home/ops/ariamh/conf/settings.conf"
+            "$HOME/.netrc": "/home/ops/.netrc",
+            "$HOME/.aws": "/home/ops/.aws",
+            "$HOME/.azure": "/home/ops/.azure",
+            "$HOME/ariamh/conf/settings.conf": "/home/ops/ariamh/conf/settings.conf"
         },
         "soft_time_limit": 86400,
         "time_limit": 86700,
