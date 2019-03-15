@@ -48,7 +48,7 @@ def create_ifg_job(project, stitched, auto_bbox, ifg_id, master_zip_url, master_
             # job params
             "project": project,
             "id": ifg_id,
-            "master_zip_url": "master_zip_url": master_zip_url,
+            "master_zip_url": master_zip_url,
             "master_zip_file": [os.path.basename(i) for i in master_zip_url],
             "master_orbit_url": master_orbit_url,
             "master_orbit_file": os.path.basename(master_orbit_url),
