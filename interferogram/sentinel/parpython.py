@@ -2,7 +2,7 @@
 import os, requests
 
 
-def create_ifg_job(project, stitched, auto_bbox, ifg_id, master_zip_url, master_orbit_url, 
+def create_ifg_job(project, stitched, auto_bbox, ifg_id, master_zip_url, master_orbit_url,
                    slave_zip_url, slave_orbit_url, swathnum, bbox, wuid=None, job_num=None):
     """Map function for create interferogram job json creation."""
 
@@ -28,8 +28,6 @@ def create_ifg_job(project, stitched, auto_bbox, ifg_id, master_zip_url, master_
     for m in master_zip_url: localize_urls.append({'url': m})
     for s in slave_zip_url: localize_urls.append({'url': s})
 
-    for url in localize_urls: url['url'] = url['url'].replace('z23.web', 'blob').replace('https://', 'azure://')
-
     return {
         "job_name": "%s-%s" % (job_type, ifg_id),
         "job_type": "job:%s" % job_type,
@@ -50,13 +48,13 @@ def create_ifg_job(project, stitched, auto_bbox, ifg_id, master_zip_url, master_
             # job params
             "project": project,
             "id": ifg_id,
-            "master_zip_url": [u.replace('z23.web', 'blob').replace('https://', 'azure://') for u in master_zip_url],
+            "master_zip_url": "master_zip_url": master_zip_url,
             "master_zip_file": [os.path.basename(i) for i in master_zip_url],
-            "master_orbit_url": master_orbit_url.replace('z23.web', 'blob').replace('https://', 'azure://'),
+            "master_orbit_url": master_orbit_url,
             "master_orbit_file": os.path.basename(master_orbit_url),
-            "slave_zip_url": [u.replace('z23.web', 'blob').replace('https://', 'azure://') for u in slave_zip_url],
+            "slave_zip_url": slave_zip_url,
             "slave_zip_file": [os.path.basename(i) for i in slave_zip_url],
-            "slave_orbit_url": slave_orbit_url.replace('z23.web', 'blob').replace('https://', 'azure://'),
+            "slave_orbit_url": slave_orbit_url,
             "slave_orbit_file": os.path.basename(slave_orbit_url),
             "swathnum": swathnum,
             "bbox": bbox,
@@ -71,9 +69,9 @@ def create_ifg_job(project, stitched, auto_bbox, ifg_id, master_zip_url, master_
             # localize urls
             "localize_urls": localize_urls,
         }
-    } 
+    }
 
-def create_offset_job(project, stitched, auto_bbox, ifg_id, master_zip_url, master_orbit_url, 
+def create_offset_job(project, stitched, auto_bbox, ifg_id, master_zip_url, master_orbit_url,
                    slave_zip_url, slave_orbit_url, swathnum, bbox, ampcor_skip_width, ampcor_skip_height,
                    ampcor_src_win_width, ampcor_src_win_height, ampcor_src_width, ampcor_src_height,
                    dem_urls, wuid=None, job_num=None):
@@ -109,7 +107,7 @@ def create_offset_job(project, stitched, auto_bbox, ifg_id, master_zip_url, mast
             "$HOME/.netrc": "/home/ops/.netrc",
             "$HOME/.aws": "/home/ops/.aws",
             "$HOME/ariamh/conf/settings.conf": "/home/ops/ariamh/conf/settings.conf"
-        },    
+        },
         "soft_time_limit": 86400,
         "time_limit": 86700,
         "payload": {
@@ -148,9 +146,9 @@ def create_offset_job(project, stitched, auto_bbox, ifg_id, master_zip_url, mast
             # localize urls
             "localize_urls": localize_urls,
         }
-    } 
+    }
 
-def create_rsp_job(project, stitched, auto_bbox, rsp_id, master_zip_url, master_orbit_url, 
+def create_rsp_job(project, stitched, auto_bbox, rsp_id, master_zip_url, master_orbit_url,
                    slave_zip_url, slave_orbit_url, swathnum, bbox, wuid=None, job_num=None):
     """Map function for create slc_pair product job json creation."""
 
@@ -184,7 +182,7 @@ def create_rsp_job(project, stitched, auto_bbox, rsp_id, master_zip_url, master_
             "$HOME/.netrc": "/home/ops/.netrc",
             "$HOME/.aws": "/home/ops/.aws",
             "$HOME/ariamh/conf/settings.conf": "/home/ops/ariamh/conf/settings.conf"
-        },    
+        },
         "soft_time_limit": 86400,
         "time_limit": 86700,
         "payload": {
@@ -216,10 +214,10 @@ def create_rsp_job(project, stitched, auto_bbox, rsp_id, master_zip_url, master_
             # localize urls
             "localize_urls": localize_urls,
         }
-    } 
+    }
 
 
-def create_xtstitched_ifg_job(project, stitched, auto_bbox, ifg_id, master_zip_url, master_orbit_url, 
+def create_xtstitched_ifg_job(project, stitched, auto_bbox, ifg_id, master_zip_url, master_orbit_url,
                               slave_zip_url, slave_orbit_url, bbox, wuid=None, job_num=None):
     """Map function for create cross-track stitched interferogram job json creation."""
 
@@ -243,8 +241,6 @@ def create_xtstitched_ifg_job(project, stitched, auto_bbox, ifg_id, master_zip_u
     for m in master_zip_url: localize_urls.append({'url': m})
     for s in slave_zip_url: localize_urls.append({'url': s})
 
-    for url in localize_urls: url['url'] = url['url'].replace('z23.web', 'blob').replace('https://', 'azure://')
-
     return {
         "job_name": "%s-%s" % (job_type, ifg_id),
         "job_type": "job:%s" % job_type,
@@ -254,7 +250,7 @@ def create_xtstitched_ifg_job(project, stitched, auto_bbox, ifg_id, master_zip_u
             "/home/ops/.aws": "/home/ops/.aws",
             "/home/ops/.azure": "/home/ops/.azure",
             "/home/ops/ariamh/conf/settings.conf": "/home/ops/ariamh/conf/settings.conf"
-        },    
+        },
         "soft_time_limit": 86400,
         "time_limit": 86700,
         "payload": {
@@ -265,13 +261,13 @@ def create_xtstitched_ifg_job(project, stitched, auto_bbox, ifg_id, master_zip_u
             # job params
             "project": project,
             "id": ifg_id,
-            "master_zip_url": [u.replace('z23.web', 'blob').replace('https://', 'azure://') for u in master_zip_url],
+            "master_zip_url": master_zip_url,
             "master_zip_file": [os.path.basename(i) for i in master_zip_url],
-            "master_orbit_url": master_orbit_url.replace('z23.web', 'blob').replace('https://', 'azure://'),
+            "master_orbit_url": master_orbit_url,
             "master_orbit_file": os.path.basename(master_orbit_url),
-            "slave_zip_url": [u.replace('z23.web', 'blob').replace('https://', 'azure://') for u in slave_zip_url],
+            "slave_zip_url": slave_zip_url,
             "slave_zip_file": [os.path.basename(i) for i in slave_zip_url],
-            "slave_orbit_url": slave_orbit_url.replace('z23.web', 'blob').replace('https://', 'azure://'),
+            "slave_orbit_url": slave_orbit_url,
             "slave_orbit_file": os.path.basename(slave_orbit_url),
             "swathnum": None,
             "bbox": bbox,
@@ -286,4 +282,4 @@ def create_xtstitched_ifg_job(project, stitched, auto_bbox, ifg_id, master_zip_u
             # localize urls
             "localize_urls": localize_urls,
         }
-    } 
+    }

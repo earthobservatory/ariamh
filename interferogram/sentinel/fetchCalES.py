@@ -121,8 +121,7 @@ def get_cal_url(id, es_url):
         #print(urls)
         #print(url)
         #print(archive_fname)
-        # temporary replace web URL with Blob URL
-        return os.path.join(url.replace('z23.web', 'blob'), archive_fname)
+        return os.path.join(url, archive_fname)
     else:
         print("Failed to query %s:\n%s" % (es_url, r.text), file=sys.stderr)
         print("query: %s" % json.dumps(query, indent=2), file=sys.stderr)
