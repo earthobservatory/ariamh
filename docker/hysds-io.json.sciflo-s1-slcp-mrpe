@@ -90,7 +90,7 @@
       "lambda": "lambda x: int(x)",
       "default": "3"
     },
-    { 
+    {
       "name": "range_looks",
       "from": "submitter",
       "type": "number",

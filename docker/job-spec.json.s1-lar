@@ -22,6 +22,14 @@
     {
       "name": "path",
       "destination": "positional"
+    },
+    {
+      "name": "lar_range_looks",
+      "destination": "context"
+    },
+    {
+      "name": "lar_azimuth_looks",
+      "destination": "context"
     }
   ]
 }
