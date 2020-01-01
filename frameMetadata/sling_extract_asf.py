@@ -553,11 +553,21 @@ if __name__ == "__main__":
     source = "asf"
     localize_url = None
     if source.lower() == "asf":
-        vertex_url = "https://datapool.asf.alaska.edu/SLC/SA/{}.zip".format(args.slc_id)
-        r = requests.head(vertex_url, allow_redirects=True)
+        # EDIT made on 20191231 to tackle problem of vertex login error
+        # vertex_url = "https://datapool.asf.alaska.edu/SLC/SA/{}.zip".format(args.slc_id)
+        # r = requests.head(vertex_url, allow_redirects=True)
+         # URL provided returned status 400 (https://auth.asf.alaska.edu/login?code=fa8d60d7faa17b572909fb45189c5fcb4e4928b2bffcc7aefe05186348df9b83&state=https%3A%2F%2Fdatapool.asf.alaska.edu%2FSLC%2FSA%2FS1A_IW_SLC__1SDV_20190723T230710_20190723T230737_028251_0330F6_C0C2.zip)
+        query_url = "https://api.daac.asf.alaska.edu/services/search/param?granule_list={}&output=json".format(identifier)
+        r = requests.get(query_url)
+        downloadUrl = ""
+        try:
+            downloadUrl = json.loads(r.text)[0][0]['downloadUrl']
+        except Exception as err:
+            logger.warn("ASF query failed")
+            
         logging.info("Status Code from ASF : %s" %r.status_code)
         if r.status_code in (200, 403):
-            localize_url = r.url
+            localize_url = downloadUrl
         else:
             raise RuntimeError("Status Code from ASF for SLC %s : %s" %(args.slc_id, r.status_code))
     else:
