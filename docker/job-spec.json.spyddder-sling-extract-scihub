@@ -1,5 +1,5 @@
 {
-  "command": "/home/ops/ariamh/frameMetadata/sling_extract.py",
+  "command": "/home/ops/ariamh/frameMetadata/sling_extract_scihub.py",
   "imported_worker_files": {
     "$HOME/.netrc": "/home/ops/.netrc",
     "$HOME/.aws": "/home/ops/.aws",
@@ -7,7 +7,8 @@
     "$HOME/verdi/etc/settings.conf": "/home/ops/ariamh/conf/settings.conf"
   },
   "recommended-queues" : [
-    "grfn-job_worker-small",
+    "spyddder-sling-extract-scihub",
+    "factotum-job_worker-scihub_throttled",
     "aria-job_worker-small",
     "mem-job_worker-small",
     "dwr-job_worker-small",
@@ -19,26 +20,6 @@
   "params" : [
     { 
       "name": "slc_id",
-      "destination": "positional"
-    },
-    {
-      "name": "source",
-      "destination": "positional"
-    },
-    {
-      "name": "download_url",
-      "destination": "positional"
-    },
-    { 
-      "name": "file",
-      "destination": "positional"
-    },
-    { 
-      "name": "prod_name",
-      "destination": "positional"
-    },
-    { 
-      "name": "prod_date",
       "destination": "positional"
     }
   ]
