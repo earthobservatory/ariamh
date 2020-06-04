@@ -5,22 +5,12 @@
     "/home/ops/.aws": ["/home/ops/.aws", "ro"],
     "/home/ops/verdi/etc/settings.conf": "/home/ops/ariamh/conf/settings.conf"
   },
-  "disk_usage":"200GB",
-   "dependency_images": [
-    {
-      "container_image_name": "aria/isce_giant:latest",
-      "container_image_url": "s3://s3-ap-southeast-1.amazonaws.com/ntu-hysds-code/aria-isce_giant-latest.tar.gz",
-      "container_mappings": {
-        "/home/ops/.netrc": ["/root/.netrc"],
-        "/home/ops/.aws": ["/root/.aws", "ro"]
-      }
-    }
-  ],
   "recommended-queues" : [
     "standard_product-s1gunw-topsapp-asg-fleet"
   ],
   "soft_time_limit": 7200,
   "time_limit": 7500,
+  "disk_usage":"200GB",
   "post": [ "hysds.utils.triage" ],
   "params" : [
     {

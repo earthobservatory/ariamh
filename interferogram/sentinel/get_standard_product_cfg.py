@@ -1,3 +1,4 @@
+from builtins import str
 import os, sys, re, requests, json, logging, traceback, argparse, copy, bisect
 import hashlib
 from itertools import product, chain
@@ -327,11 +328,11 @@ def initiate_standard_product_job(context_file):
     platform = input_metadata["platform"]
     subswaths = [1, 2, 3] #context['subswaths']
     
-    azimuth_looks = 19
+    azimuth_looks = 7
     if 'azimuth_looks' in input_metadata:
 	azimuth_looks = int(input_metadata['azimuth_looks'])
 
-    range_looks = 7
+    range_looks = 19
     if 'range_looks' in input_metadata:
         range_looks = int(input_metadata['range_looks'])
 

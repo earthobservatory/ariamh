@@ -1,29 +1,20 @@
 {
-  "command": "/home/ops/ariamh/interferogram/sentinel/sciflo_create_rsp_mrpe.sh",
+  "command": "/home/ops/ariamh/interferogram/sentinel/sciflo_create_ifg.sh",
   "imported_worker_files": {
-    "$HOME/.netrc": "/home/ops/.netrc",
-    "$HOME/.aws": "/home/ops/.aws",
+    "$HOME/.netrc": ["/home/ops/.netrc"],
+    "$HOME/.aws": ["/home/ops/.aws", "ro"],
     "$HOME/verdi/etc/settings.conf": "/home/ops/ariamh/conf/settings.conf"
   },
   "recommended-queues" : [
-    "sciflo-s1-slcp-mrpe"
+    "grfn-job_worker-small",
+    "aria-job_worker-small",
+    "mem-job_worker-small",
+    "dwr-job_worker-small",
+    "chevron-job_worker-small",
+    "floodmap-job_worker-small",
+    "urgent-response-job_worker-small"
   ],
-  "soft_time_limit": 7200,
-  "time_limit": 7500,
-  "disk_usage":"200GB",
   "params" : [
-    {
-      "name": "event_time",
-      "destination": "context"
-    },
-    { 
-      "name": "start_time",
-      "destination": "context"
-    },
-    { 
-      "name": "end_time",
-      "destination": "context"
-    },
     {
       "name": "dataset_tag",
       "destination": "context"
