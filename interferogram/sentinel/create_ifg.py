@@ -8,7 +8,6 @@ from glob import glob
 from lxml.etree import parse
 import numpy as np
 from datetime import datetime
-
 from utils.UrlUtils import UrlUtils
 from check_interferogram import check_int
 from create_input_xml import create_input_xml
@@ -463,30 +462,49 @@ def main():
     
     # create browse images
     os.chdir(prod_merged_dir)
+    from utils.isce2geotiff_unw import intf2browse
+    intf2browse('.')
     mdx_app_path = "{}/applications/mdx.py".format(os.environ['ISCE_HOME'])
     mdx_path = "{}/bin/mdx".format(os.environ['ISCE_HOME'])
+    import isce
     from utils.createImage import createImage
+    import xml.etree.ElementTree as ET
+    from iscesys.Dumpers.XmlDumper import XmlDumper
     unw_file = "filt_topophase.unw.geo"
-    #unwrapped image at different rates
-    createImage("{} -P {}".format(mdx_app_path, unw_file),unw_file)
-    createImage("{} -P {} -wrap {}".format(mdx_app_path, unw_file, rad),unw_file + "_5cm")
-    createImage("{} -P {} -wrap 20".format(mdx_app_path, unw_file),unw_file + "_20rad")
-    #amplitude image
     unw_xml = "filt_topophase.unw.geo.xml"
-    rt = parse(unw_xml)
-    size = eval(rt.xpath('.//component[@name="coordinate1"]/property[@name="size"]/value/text()')[0])
-    rtlr = size * 4
-    logger.info("rtlr value for amplitude browse is: {}".format(rtlr))
-    createImage("{} -P {} -s {} -amp -r4 -rtlr {} -CW".format(mdx_path, unw_file, size, rtlr),'amplitude.geo')
-    #coherence image
-    top_file = "topophase.cor.geo"
-    createImage("{} -P {}".format(mdx_app_path, top_file),top_file)
-    #should be the same size as unw but just in case
-    top_xml = "topophase.cor.geo.xml"
-    rt = parse(top_xml)
-    size = eval(rt.xpath('.//component[@name="coordinate1"]/property[@name="size"]/value/text()')[0])
-    rhdr = size * 4
-    createImage("{} -P {} -s {} -r4 -rhdr {} -cmap cmy -wrap 1.2".format(mdx_path, top_file,size,rhdr),"topophase_ph_only.cor.geo")
+    # fix image type in unwrap for the later steps
+    with open(unw_xml) as f:
+        root = ET.ElementTree(file=f).getroot()
+        child = ET.SubElement(root,"property",name="image_type")
+        ET.SubElement(child, 'value').text = "unw"
+        ET.SubElement(child, 'doc').text = "Image type used for displaying."
+    XD = XmlDumper()
+    XD.indent(root)
+    testxml = "test.xml"
+    etObj = ET.ElementTree(root)
+    fp = open(testxml,'wb')
+    etObj.write(fp)
+    fp.close()
+    call_noerr("mv {} {}".format(testxml, unw_xml))
+    # unwrapped image at different rates
+    createImage("{} -P {}".format(mdx_app_path, unw_file),unw_file)
+    # createImage("{} -P {} -wrap {}".format(mdx_app_path, unw_file, rad),unw_file + "_5cm")
+    # createImage("{} -P {} -wrap 20".format(mdx_app_path, unw_file),unw_file + "_20rad")
+    # #amplitude image
+    # rt = parse(unw_xml)
+    # size = eval(rt.xpath('.//component[@name="coordinate1"]/property[@name="size"]/value/text()')[0])
+    # rtlr = size * 4
+    # logger.info("rtlr value for amplitude browse is: {}".format(rtlr))
+    # createImage("{} -P {} -s {} -amp -r4 -rtlr {} -CW".format(mdx_path, unw_file, size, rtlr),'amplitude.geo')
+    # #coherence image
+    # top_file = "topophase.cor.geo"
+    # createImage("{} -P {}".format(mdx_app_path, top_file),top_file)
+    # #should be the same size as unw but just in case
+    # top_xml = "topophase.cor.geo.xml"
+    # rt = parse(top_xml)
+    # size = eval(rt.xpath('.//component[@name="coordinate1"]/property[@name="size"]/value/text()')[0])
+    # rhdr = size * 4
+    # createImage("{} -P {} -s {} -r4 -rhdr {} -cmap cmy -wrap 1.2".format(mdx_path, top_file,size,rhdr),"topophase_ph_only.cor.geo")
 
 
     '''
